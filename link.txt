@@ -1,1 +1,1 @@
-https://github.com/juuseung/LLMs-in-the-Health-Sciences
+https://github.com/juuseung/NLI4CT
