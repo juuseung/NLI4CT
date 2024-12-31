@@ -1,1 +1,1 @@
-## Execute the 635_proj.ipynb to get the results
+# Multi-Evidence Natural Language Inference for Clinical Trial Data (NLI4CT)
