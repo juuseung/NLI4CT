@@ -1,24 +1,42 @@
 # Multi-Evidence Natural Language Inference for Clinical Trial Data (NLI4CT)
+This repository documents my contributions to a team project addressing the challenge of **Multi-Evidence Natural Language Inference (NLI)** for Clinical Trial Reports (CTRs), focusing on **textual entailment** between CTR statements and premises.
 
+---
 
 ## Overview
+Clinical Trial Reports (CTRs) are the documents recording the outcomes of clinical 
+trials, which tests the outcomes of potential medical interventions in order to 
+guide interventions for patients. 
+As the amount of CTRs increases, it becomes hard to analyze every CTR by humans. 
+A good solution is to give the task to computers, specifically, to let language 
+models work on clinical natural inference (NLI) tasks.
 
-This repository documents my contributions to a team project addressing the challenge of **Multi-Evidence Natural Language Inference (NLI)** for Clinical Trial Registrations (CTR), focusing on **textual entailment** between CTR statements and premises. The task involves:
+In this project, we are training a large language model (LLM) to make textual entailment given a pair of CTR premise and statement. 
+We first summarize 3 challenges of the problem, and select several existing LLMs as baseline models, i.e. BERT, BioLinkBERT, and GPT3.5 after analysis based on literature. We then tested the baseline performances on the development dataset in order to choose an appropriate model based on the test results. 
+We selected GPT3.5-turbo as our baseline model because of its robustness and good performance on many other related benchmark studies. 
+We then conducted a lot of prompt engineering to find a best-fit prompt setting for this task, and also fine-tuned the model with extracted prompts from the training dataset. 
+We applied several settings of prompts including Chain of Thoughts (CoT) prompting 
+on the original and the fine-tuned model. 
+The evaluation results on the development dataset show that the fine-tuned model performs good and its performance could be further improved with the use of CoT.
+
+---
+
+## Task: Textual Entailment
+This task is based on a collection of breast cancer CTRs (extracted from https://clinicaltrials.gov/ct2/home), statements, explanations, and labels annotated by domain expert annotators.
+The task involves:
 
 1. **Predicting entailment**: Assessing the inference relationship (entailment vs contradiction) between a CTR premise and a statement.
 2. **Evidence extraction**: Extracting evidence from the CTR to support the entailment label.
 
-The project emphasizes overcoming the following challenges:
-- Multi-hop reasoning
-- Incorporating biomedical knowledge in large language models (LLMs)
-- Handling numerical and quantitative reasoning
+For the task, we have CTRs into 4 sections:
+- Eligibility criteria - A set of conditions for patients to be allowed to take part in the clinical trial
+- Intervention - Information concerning the treatment type, dosage, frequency, and duration being studied.
+- Results - Number of participants in the trial, outcome measures, units, and the results.
+- Adverse events - These are signs and symptoms observed in patients during the clinical trial.
 
+For this task, each CTR may contain 1-2 patient groups, called cohorts or arms. These groups may receive different treatments, or have different baseline characteristics.
 
 ---
-
-<!-- This project focuses on building a Natural Language Inference (NLI) system for Clinical Trial Reports (CTRs) related to breast cancer treatments. The system is designed to analyze complex medical reports to support medical professionals in determining the safety and efficacy of treatments. The project combines techniques from Natural Language Processing (NLP), Information Retrieval (IR), and Machine Learning (ML) to solve a real-world challenge in the health sciences domain.
-
-The dataset includes CTRs segmented into **Eligibility Criteria**, **Intervention**, **Results**, and **Adverse Events** sections, along with annotated statements and inference labels. The goal is to determine the entailment relationship (entailment vs contradiction) between CTRs and provided statements. -->
 
 ## Problem Statement
 
@@ -68,10 +86,6 @@ We experimented with multiple LLMs as baseline models:
 - Prompts with clear, concise instructions produced the best results.
 - GPT demonstrated high sensitivity to minor prompt adjustments, emphasizing the importance of prompt engineering.
 - Despite improvements, there is still room for optimization, particularly on the gold practice test dataset.
-
----
-
-## Dataset
 
 ---
 
